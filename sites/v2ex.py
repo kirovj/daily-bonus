@@ -38,7 +38,7 @@ class V2ex:
                 return True
         return False
 
-    def bonus(self) -> (bool, str, str):
+    def bonus(self) -> (bool, str):
         self._get(f'https://www.v2ex.com/mission/daily/redeem?once={self.once}')
         r = self._get('https://www.v2ex.com/balance')
         tree = html.fromstring(r.content)
@@ -50,6 +50,6 @@ class V2ex:
             if len(balance) == 2:
                 balance = ['0'] + balance
             golden, silver, bronze = [s.strip() for s in balance]
-            return True, bonus, f'{golden} 金币 {silver} 银币 {bronze} 铜币'
+            return True, f'Earned {bonus}, {golden} 金币 {silver} 银币 {bronze} 铜币'
         else:
-            return False,
+            return False, 'not found 每日登录奖励'

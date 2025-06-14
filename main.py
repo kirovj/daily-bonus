@@ -13,15 +13,16 @@ def auto_import_sites(package):
 
 def run_all():
     for site in site_list:
-        log = logger.bind(key=site.__class__.__name__)
+        site_name = site.__class__.__name__
+        log = logger.bind(key=site_name)
         log.info('start daily bonus')
         if site.login():
             log.success('login success! try bonus...')
-            is_success, bonus, remained = site.bonus()
+            is_success, message = site.bonus()
             if is_success:
-                log.success(f'Bonus success! Earned {bonus}, {remained} remained')
+                log.success(f'Bonus success! {message}')
             else:
-                log.warning('Bonus fail!')
+                log.warning(f'Bonus fail! {message}')
 
 
 if __name__ == "__main__":
