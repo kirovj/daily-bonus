@@ -30,7 +30,7 @@ class V2ex:
         r = self._get('https://www.v2ex.com/mission/daily')
         if r.ok:
             response = r.text
-            if '你要查看的页面需要先登录' in response:
+            if '你要查看的页面需要先登录' in response or '每日登录奖励已领取' in response:
                 return False
             match = re.search(r"once=(\d+)", r.text)
             if match:

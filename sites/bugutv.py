@@ -24,7 +24,7 @@ class Bugutv:
         self.s.post(self.login_url, data=self.login_data)
         r = self.s.get('https://www.bugutv.vip/user')
         if r.ok and '每日签到' in r.text:
-            match = re.search(r'<a class="user-logout".*?_wpnonce=([^"]+)', r.text)
+            match = re.search(r'data-nonce="([^"]+)"', r.text)
             if match:
                 self.nonce = match.group(1)
                 return True
